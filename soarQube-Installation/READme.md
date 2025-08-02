@@ -3,7 +3,6 @@
 ### **Email: mylandmarktech@gmail.com**
 
 
-
 ## SonarQube Installation And Setup In AWS EC2 Redhat Instance.
 ##### Prerequisite
 + AWS Acccount.
@@ -11,7 +10,23 @@
 + Create Security Group and open Required ports.
    + 9000 ..etc
 + Attach Security Group to EC2 Instance.
-+ Install java openJDK 1.8+ for SonarQube version 7.8
++ Install java openJDK 17+ for SonarQube version 9.9+
+
+##Download Eclipse Temurin JDK 17 (Linux x64 .tar.gz)
+sudo wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9%2B9/OpenJDK17U-jdk_x64_linux_hotspot_17.0.9_9.tar.gz
+##This is the jdk-17.0.9+9 release — a stable and supported version for running SonarQube 9.9.8.
+________________________________________
+##Next Steps After Download
+1.	Extract the archive:
+sudo mkdir -p /usr/lib/jvm
+sudo tar -xzf OpenJDK17U-jdk_x64_linux_hotspot_17.0.9_9.tar.gz -C /usr/lib/jvm
+2.	Set JAVA_HOME and update PATH:
+export JAVA_HOME=/usr/lib/jvm/jdk-17.0.9+9
+export PATH=$JAVA_HOME/bin:$PATH
+3.	Verify Java version:
+java -version
+You should see:
+openjdk version "17.0.9" ...
 
 ## 1. Create sonar user to manage the SonarQube server
 ```sh
@@ -27,20 +42,14 @@ sudo su - sonar
 # change  the timezone sonarqube server
 sudo timedatectl set-timezone America/New_York
 ```
-### 3. Install Java JDK 1.8+ required for sonarqube to start
-
 ``` sh
 cd /opt
 sudo yum -y install unzip wget git
-sudo yum remove java* -y
-sudo yum install fontconfig java-17-openjdk -y
-
-
 ```
 ## 2. install sonarqube  
 ### 4. Download and extract the SonarqQube Server software.
 ```sh
-sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.10.61524.zip
+sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.8.100196.zip
 sudo unzip sonarqube*
 sudo rm -rf *zip
 sudo mv sonarqube* sonarqube
